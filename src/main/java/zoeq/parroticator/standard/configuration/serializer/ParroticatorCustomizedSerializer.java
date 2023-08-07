@@ -1,16 +1,22 @@
-package zoeq.parroticator.standard.application.services;
+package zoeq.parroticator.standard.configuration.serializer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.serializer.Deserializer;
 import org.springframework.core.serializer.Serializer;
+import org.springframework.integration.ip.tcp.TcpInboundGateway;
 import org.springframework.stereotype.Service;
+import zoeq.parroticator.standard.application.services.ReceiverUiService;
+import zoeq.parroticator.standard.application.services.TcpServerNotificationService;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
+/**
+ * The serializer class for the message {@link TcpInboundGateway} receives.
+ */
 @Slf4j
 @Service
 public class ParroticatorCustomizedSerializer
@@ -22,17 +28,29 @@ public class ParroticatorCustomizedSerializer
   int STX = 0x02;
   int ETX = 0x03;
 
+  /**
+   * The deserializer process for the message.
+   * When this process receives the message, start checking the message text.
+   * If the text is STX, this process starts to build the message.
+   * When ETX is received, building the message will be stopped.
+   * Built message will be published to {@link ReceiverUiService}.
+   *
+   * @param inputStream the input stream
+   * @return built message includes STX, ETX
+   * @throws IOException Information about this method
+   *                     will be published to {@link TcpServerNotificationService}
+   */
   @NotNull
   @Override
   public byte[] deserialize(InputStream inputStream) throws IOException {
     try {
-      log.info("Message received");
       byte[] fullMessage = new byte[maxMessageLength];
       boolean receiveFlag = false;
       int idx = 0;
       int messageLength = 0;
       while (true) {
         byte messageText = (byte) inputStream.read();
+        // starts building message when STX received
         if (messageText == STX) {
           fullMessage[idx] = messageText;
           receiveFlag = true;
@@ -52,7 +70,8 @@ public class ParroticatorCustomizedSerializer
       // delete unnecessary 0 parts from fullMessage
       byte[] receivedFullMessage = new byte[messageLength];
       System.arraycopy(fullMessage, 0, receivedFullMessage, 0, messageLength);
-      log.info("Received message : " + receivedFullMessage);
+      log.info("Received message : " + new String(receivedFullMessage,
+              Charset.defaultCharset()));
       return receivedFullMessage;
     } catch (Exception e) {
       e.printStackTrace();

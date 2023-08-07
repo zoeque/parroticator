@@ -14,7 +14,7 @@ import org.springframework.integration.ip.tcp.connection.AbstractServerConnectio
 import org.springframework.integration.ip.tcp.connection.TcpNetClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.messaging.MessageChannel;
-import zoeq.parroticator.standard.application.services.ParroticatorCustomizedSerializer;
+import zoeq.parroticator.standard.configuration.serializer.ParroticatorCustomizedSerializer;
 
 @Configuration
 @EnableIntegration
