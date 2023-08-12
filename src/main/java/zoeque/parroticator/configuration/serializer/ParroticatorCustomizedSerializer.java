@@ -1,4 +1,4 @@
-package zoeq.parroticator.standard.configuration.serializer;
+package zoeque.parroticator.configuration.serializer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.serializer.Deserializer;
 import org.springframework.core.serializer.Serializer;
 import org.springframework.integration.ip.tcp.TcpInboundGateway;
-import org.springframework.stereotype.Service;
-import zoeq.parroticator.standard.application.services.ReceiverUiService;
-import zoeq.parroticator.standard.application.services.TcpServerNotificationService;
+import org.springframework.stereotype.Component;
+import zoeque.parroticator.application.services.TcpServerNotificationService;
+import zoeque.parroticator.application.services.standard.AbstractMessageHandleService;
 
 /**
  * The serializer class for the message {@link TcpInboundGateway} receives.
  */
 @Slf4j
-@Service
+@Component
 public class ParroticatorCustomizedSerializer
         implements Serializer<byte[]>, Deserializer<byte[]> {
 
@@ -33,7 +33,7 @@ public class ParroticatorCustomizedSerializer
    * When this process receives the message, start checking the message text.
    * If the text is STX, this process starts to build the message.
    * When ETX is received, building the message will be stopped.
-   * Built message will be published to {@link ReceiverUiService}.
+   * Built message will be published to {@link AbstractMessageHandleService}.
    *
    * @param inputStream the input stream
    * @return built message includes STX, ETX

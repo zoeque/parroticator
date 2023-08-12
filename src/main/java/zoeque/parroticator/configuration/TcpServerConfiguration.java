@@ -1,4 +1,4 @@
-package zoeq.parroticator.standard.configuration;
+package zoeque.parroticator.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import org.springframework.integration.ip.tcp.connection.AbstractServerConnectio
 import org.springframework.integration.ip.tcp.connection.TcpNetClientConnectionFactory;
 import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionFactory;
 import org.springframework.messaging.MessageChannel;
-import zoeq.parroticator.standard.configuration.serializer.ParroticatorCustomizedSerializer;
+import zoeque.parroticator.configuration.serializer.ParroticatorCustomizedSerializer;
 
 @Configuration
 @EnableIntegration
@@ -36,7 +36,7 @@ public class TcpServerConfiguration {
   }
 
   @Bean
-  MessageChannel outputChannel() {
+  public MessageChannel outputChannel() {
     return new DirectChannel();
   }
 
@@ -61,17 +61,16 @@ public class TcpServerConfiguration {
 
   @Bean
   public AbstractClientConnectionFactory clientConnectionFactory() {
-
-    TcpNetClientConnectionFactory clientConnectionFactory
+    TcpNetClientConnectionFactory factory
             = new TcpNetClientConnectionFactory("localhost", portNumber);
-    clientConnectionFactory.setSerializer(parroticatorCustomizedSerializer);
-    clientConnectionFactory.setDeserializer(parroticatorCustomizedSerializer);
-    return clientConnectionFactory;
+    factory.setSerializer(parroticatorCustomizedSerializer);
+    factory.setDeserializer(parroticatorCustomizedSerializer);
+    factory.setSingleUse(true);
+    return factory;
   }
   @Bean
-  public TcpOutboundGateway tcpOutboundGateway() {
+  public TcpOutboundGateway tcpOutboundGateway(AbstractClientConnectionFactory clientConnectionFactory) {
     TcpOutboundGateway tcpOutboundGateway = new TcpOutboundGateway();
-    tcpOutboundGateway.setConnectionFactory(clientConnectionFactory());
     tcpOutboundGateway.setReplyChannel(outputChannel());
     return tcpOutboundGateway;
   }
