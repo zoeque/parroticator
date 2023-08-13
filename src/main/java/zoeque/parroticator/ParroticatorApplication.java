@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "zoeque.parroticator")
-@EnableJpaRepositories(basePackages = "zoeque.parroticator")
 @ComponentScan(basePackages = "zoeque.parroticator")
 @ConfigurationPropertiesScan(basePackages = "zoeque.parroticator")
 public class ParroticatorApplication {
