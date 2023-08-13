@@ -1,4 +1,4 @@
-package zoeq.parroticator;
+package zoeque.parroticator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

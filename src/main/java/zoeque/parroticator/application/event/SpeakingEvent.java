@@ -1,4 +1,4 @@
-package zoeq.parroticator.standard.application.event;
+package zoeque.parroticator.application.event;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
