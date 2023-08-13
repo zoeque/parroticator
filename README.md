@@ -15,13 +15,17 @@ The message must be appended the STX and ETX for beginning and the end of the me
 For example, "Hello world" must be STX + "Hello world".toByte() + ETX.
 STX is defined by 0x02 and ETX is 0x03.  
 
-### Settings
+### Settings  
+Parroticator can set the parameter of message encoding, message length, and the TCP server port.
+The default encoding is Shift-JIS(SJIS).
+
 Parroticator uses the port number 8080 for Spring boot server and 2000 for socket server.  
 The port number for socket receiver process can be changed by the definition on application.properties.  
 
 Also, default message length can be modified by the definition on application.properties.
 Here is an example of settings.  
 ```properties
+zoeque.parroticator.message.encoding=SJIS
 zoeque.parroticator.message.length=1024
 zoeque.parroticator.server.port=2000
 ```  
