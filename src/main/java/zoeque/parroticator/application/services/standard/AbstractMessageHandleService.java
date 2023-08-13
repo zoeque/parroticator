@@ -28,7 +28,7 @@ public abstract class AbstractMessageHandleService {
       log.warn("Received message has no text");
       return fullMessage;
     }
-    log.info("Handle the message to echo" + new String(fullMessage,
+    log.info("Handle the message to echo : " + new String(fullMessage,
             Charset.forName(messageEncoding)));
     return fullMessage;
   }
