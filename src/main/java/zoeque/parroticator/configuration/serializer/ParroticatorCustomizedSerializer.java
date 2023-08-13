@@ -11,8 +11,10 @@ import org.springframework.core.serializer.Deserializer;
 import org.springframework.core.serializer.Serializer;
 import org.springframework.integration.ip.tcp.TcpInboundGateway;
 import org.springframework.stereotype.Component;
+import zoeque.parroticator.application.services.MessageHandleService;
 import zoeque.parroticator.application.services.TcpServerNotificationService;
 import zoeque.parroticator.application.services.standard.AbstractMessageHandleService;
+import zoeque.parroticator.configuration.TcpServerConfiguration;
 
 /**
  * The serializer class for the message {@link TcpInboundGateway} receives.
@@ -79,6 +81,18 @@ public class ParroticatorCustomizedSerializer
     }
   }
 
+
+  /**
+   * The serializer process.
+   * This method sends the message to the client.
+   * The message is handled by the {@link MessageHandleService} and received by this method.
+   * The received message will be sent by the {@link OutputStream}.
+   * Connection configurations are defined in {@link TcpServerConfiguration}
+   *
+   * @param message      the object to serialize
+   * @param outputStream the output stream
+   * @throws IOException is thrown when the message cannot be sent by a stream.
+   */
   @Override
   public void serialize(@NotNull byte[] message,
                         OutputStream outputStream) throws IOException {

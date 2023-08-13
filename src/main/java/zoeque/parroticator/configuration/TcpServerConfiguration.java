@@ -16,6 +16,10 @@ import org.springframework.integration.ip.tcp.connection.TcpNetServerConnectionF
 import org.springframework.messaging.MessageChannel;
 import zoeque.parroticator.configuration.serializer.ParroticatorCustomizedSerializer;
 
+/**
+ * Configurations for building the TCP server.
+ * Here is the definition to use {@link TcpInboundGateway} provided by the Spring integration.
+ */
 @Configuration
 @EnableIntegration
 @IntegrationComponentScan
