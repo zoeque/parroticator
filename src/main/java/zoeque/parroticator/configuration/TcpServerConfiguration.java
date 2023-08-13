@@ -20,7 +20,7 @@ import zoeque.parroticator.configuration.serializer.ParroticatorCustomizedSerial
 @EnableIntegration
 @IntegrationComponentScan
 public class TcpServerConfiguration {
-  @Value("${zoeq.parroticator.server.port:1000}")
+  @Value("${zoeque.parroticator.server.port:2000}")
   int portNumber;
 
   ParroticatorCustomizedSerializer parroticatorCustomizedSerializer;

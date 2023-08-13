@@ -16,14 +16,14 @@ For example, "Hello world" must be STX + "Hello world".toByte() + ETX.
 STX is defined by 0x02 and ETX is 0x03.  
 
 ### Settings
-Parroticator uses the port number 8080 for Spring boot server and 1000 for socket server.  
+Parroticator uses the port number 8080 for Spring boot server and 2000 for socket server.  
 The port number for socket receiver process can be changed by the definition on application.properties.  
 
 Also, default message length can be modified by the definition on application.properties.
 Here is an example of settings.  
 ```properties
 zoeque.parroticator.message.length=1024
-zoeq.parroticator.server.port=1000
+zoeque.parroticator.server.port=2000
 ```  
 
 ## Development

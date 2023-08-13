@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 public class Sender {
   public static void main(String[] args) {
     String serverAddress = "localhost";
-    int serverPort = 1000;
+    int serverPort = 2000;
 
     try (Socket socket = new Socket(serverAddress, serverPort)) {
       System.out.println("Connected to server");
