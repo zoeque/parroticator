@@ -65,6 +65,10 @@ public class ParroticatorCustomizedSerializer
           } else {
             fullMessage[idx++] = messageText;
             messageLength++;
+            if (messageLength == maxMessageLength - 1) {
+              log.warn("Message cannot receive completely because of the message length");
+              throw new IllegalStateException("The message length is longer than " + messageLength);
+            }
             continue;
           }
         }

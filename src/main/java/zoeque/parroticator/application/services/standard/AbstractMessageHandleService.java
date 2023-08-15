@@ -24,7 +24,8 @@ public abstract class AbstractMessageHandleService {
    * @return byte array message with no conversion.
    */
   public byte[] handleMessage(byte[] fullMessage) {
-    if (fullMessage.length == 0) {
+    if (fullMessage.length <= 2) {
+      // message contains only STX and ETX
       log.warn("Received message has no text");
       return fullMessage;
     }
